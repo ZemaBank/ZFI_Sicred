@@ -2,7 +2,11 @@ module M2ySicred
   class Base
     def self.base_url
       M2ySicred.configuration.server_url
-    end 
+    end
+
+    def self.fixie
+      URI.parse M2ySicred.configuration.proxy
+    end
 
     def self.base_headers
       headers = {}
@@ -51,14 +55,22 @@ module M2ySicred
     def self.post(url, body, headers = nil)
       headers = base_headers if headers.nil?
       puts "Sending POST request to URL: #{url}"
-      response = HTTParty.post(url, headers: headers, body: body.to_json, debug_output: $stdout)
+      response = HTTParty.post( url, headers: headers, body: body.to_json,
+                                http_proxyaddr: fixie.host,
+                                http_proxyport: fixie.port,
+                                http_proxyuser: fixie.user,
+                                http_proxypass: fixie.password)
       format_response(response)
     end
 
     def self.get(url, headers = nil)
       headers = base_headers if headers.nil?
       puts "Sending GET request to URL: #{url}"
-      response = HTTParty.get(url, headers: headers, debug_output: $stdout)
+      response = HTTParty.get(url, headers: headers,
+                              http_proxyaddr: fixie.host,
+                              http_proxyport: fixie.port,
+                              http_proxyuser: fixie.user,
+                              http_proxypass: fixie.password)
       format_response(response)
     end
 

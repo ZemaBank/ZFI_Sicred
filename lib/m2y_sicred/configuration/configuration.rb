@@ -1,6 +1,6 @@
 module M2ySicred
   class Configuration
-    attr_writer :server_url, :authorization_url, :username, :password, :scope, :client_secret, :client_id
+    attr_writer :server_url, :authorization_url, :username, :password, :scope, :client_secret, :client_id, :proxy
 
     def initialize
       @server_url = nil
@@ -10,6 +10,7 @@ module M2ySicred
       @scope = nil
       @client_id = nil
       @client_secret = nil
+      @proxy = nil
     end
 
     def server_url
@@ -38,6 +39,10 @@ module M2ySicred
 
     def client_secret
       @client_secret
+    end
+
+    def proxy
+      @proxy
     end
   end
 end
