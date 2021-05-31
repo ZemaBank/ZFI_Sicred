@@ -74,6 +74,17 @@ module M2ySicred
       format_response(response)
     end
 
+    def self.put(url, body, headers = nil)
+      headers = base_headers if headers.nil?
+      puts "Sending PUT request to URL: #{url}"
+      response = HTTParty.put( url, headers: headers, body: body.to_json,
+                                http_proxyaddr: fixie.host,
+                                http_proxyport: fixie.port,
+                                http_proxyuser: fixie.user,
+                                http_proxypass: fixie.password)
+      format_response(response)
+    end
+
     def self.format_response(original_response)
       response = original_response.parsed_response
       response = { body: response } if response.is_a?(Array)
