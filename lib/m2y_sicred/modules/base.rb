@@ -5,7 +5,7 @@ module M2ySicred
     end
 
     def self.fixie
-      URI.parse M2ySicred.configuration.proxy if !Rails.env.production?
+      URI.parse M2ySicred.configuration.proxy if !M2ySicred.configuration.production?
     end
 
     def self.base_headers
@@ -55,7 +55,7 @@ module M2ySicred
     def self.post(url, body, headers = nil)
       headers = base_headers if headers.nil?
       puts "Sending POST request to URL: #{url}"
-      if Rails.env.production?
+      if M2ySicred.configuration.production?
         response = HTTParty.post(url, headers: headers, body: body.to_json)
       else
         response = HTTParty.post( url, headers: headers, body: body.to_json,
@@ -70,7 +70,7 @@ module M2ySicred
     def self.get(url, headers = nil)
       headers = base_headers if headers.nil?
       puts "Sending GET request to URL: #{url}"
-      if Rails.env.production?
+      if M2ySicred.configuration.production?
         response = HTTParty.get(url, headers: headers)
       else
         response = HTTParty.get(url, headers: headers,
@@ -85,7 +85,7 @@ module M2ySicred
     def self.put(url, body, headers = nil)
       headers = base_headers if headers.nil?
       puts "Sending PUT request to URL: #{url}"
-      if Rails.env.production?
+      if M2ySicred.configuration.production?
         response = HTTParty.put(url, headers: headers, body: body.to_json)
       else
         response = HTTParty.put( url, headers: headers, body: body.to_json,

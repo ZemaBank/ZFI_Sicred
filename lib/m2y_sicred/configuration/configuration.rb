@@ -1,6 +1,6 @@
 module M2ySicred
   class Configuration
-    attr_writer :server_url, :authorization_url, :username, :password, :scope, :client_secret, :client_id, :proxy
+    attr_writer :server_url, :authorization_url, :username, :password, :scope, :client_secret, :client_id, :proxy, :env
 
     def initialize
       @server_url = nil
@@ -11,6 +11,7 @@ module M2ySicred
       @client_id = nil
       @client_secret = nil
       @proxy = nil
+      @env = nil
     end
 
     def server_url
@@ -43,6 +44,14 @@ module M2ySicred
 
     def proxy
       @proxy
+    end
+
+    def env
+      @env
+    end
+
+    def production?
+      env.to_s.upcase == 'PRD'
     end
   end
 end
