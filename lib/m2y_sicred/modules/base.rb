@@ -90,6 +90,13 @@ module M2ySicred
       response = { body: response } if response.is_a?(Array)
       response = {} unless response.is_a?(Hash)
       response[:status_code] = original_response.code
+      begin
+        response[:original_request] = original_response.request.raw_body
+        response[:url] = original_response.request.uri
+      rescue StandardError
+        response[:original_request] = nil
+        response[:url] = nil
+      end
       puts response
       response
     end
