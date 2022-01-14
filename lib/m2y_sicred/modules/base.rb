@@ -54,7 +54,7 @@ module M2ySicred
 
     def self.post(url, body, headers = nil)
       headers = base_headers if headers.nil?
-      puts "Sending POST request to URL: #{url}"
+      # puts "Sending POST request to URL: #{url}"
       response = HTTParty.post( url, headers: headers, body: body.to_json,
                                 http_proxyaddr: fixie.host,
                                 http_proxyport: fixie.port,
@@ -65,7 +65,7 @@ module M2ySicred
 
     def self.get(url, headers = nil)
       headers = base_headers if headers.nil?
-      puts "Sending GET request to URL: #{url}"
+      # puts "Sending GET request to URL: #{url}"
       response = HTTParty.get(url, headers: headers,
                               http_proxyaddr: fixie.host,
                               http_proxyport: fixie.port,
@@ -76,7 +76,7 @@ module M2ySicred
 
     def self.put(url, body, headers = nil)
       headers = base_headers if headers.nil?
-      puts "Sending PUT request to URL: #{url}"
+      # puts "Sending PUT request to URL: #{url}"
       response = HTTParty.put(url, headers: headers, body: body.to_json,
                               http_proxyaddr: fixie.host,
                               http_proxyport: fixie.port,
@@ -97,7 +97,7 @@ module M2ySicred
         response[:original_request] = nil
         response[:url] = nil
       end
-      puts response
+      # puts response
       response
     end
   end
